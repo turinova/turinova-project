@@ -1,7 +1,7 @@
 name: turinova-erp
 services:
   - name: erp-app
-    source_dir: erp-app
+    source_dir: .
     github:
       repo: turinova/turinova-project
       branch: main
@@ -32,4 +32,4 @@ databases:
     size: db-s-1vcpu-1gb
     num_nodes: 1
     db_name: turinova_master
-    db_user: turinova_admin
+    db_user: turinova_admin 
