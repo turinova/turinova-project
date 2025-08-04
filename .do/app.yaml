@@ -19,7 +19,7 @@ services:
       - key: DB_HOST
         value: ${db.DATABASE_HOST}
       - key: DB_PORT
-        value: "25060"
+        value: ${db.DATABASE_PORT}
       - key: DB_NAME
         value: ${db.DATABASE_NAME}
       - key: DB_USER
@@ -30,10 +30,10 @@ services:
         value: utf8
 
 databases:
-  - name: turinova-dev
+  - name: db-postgresql-fra1-89553
     engine: pg
     version: "15"
     size: db-s-1vcpu-1gb
     num_nodes: 1
-    db_name: turinova-dev
-    db_user: turinova-dev
+    db_name: defaultdb
+    db_user: doadmin
