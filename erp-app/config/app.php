@@ -32,12 +32,16 @@ if ($is_production) {
 if (!defined('APP_NAME')) define('APP_NAME', 'Turinova ERP');
 if (!defined('APP_VERSION')) define('APP_VERSION', '3.0');
 
-// Database configuration - Use environment variables in production
+// Database configuration - Support both MySQL and PostgreSQL
+if (!defined('DB_TYPE')) define('DB_TYPE', $_ENV['DB_TYPE'] ?? 'mysql'); // 'mysql' or 'pgsql'
 if (!defined('DB_HOST')) define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
 if (!defined('DB_NAME')) define('DB_NAME', $_ENV['DB_NAME'] ?? 'turinova_erp');
 if (!defined('DB_USER')) define('DB_USER', $_ENV['DB_USER'] ?? 'root');
 if (!defined('DB_PASS')) define('DB_PASS', $_ENV['DB_PASS'] ?? 'root');
 if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
+
+// PostgreSQL specific settings
+if (!defined('DB_PORT')) define('DB_PORT', $_ENV['DB_PORT'] ?? (DB_TYPE === 'pgsql' ? '5432' : '3306'));
 
 // Performance settings
 if (!defined('CACHE_ENABLED')) define('CACHE_ENABLED', $is_production);
