@@ -1,7 +1,7 @@
 name: turinova-erp
 services:
   - name: erp-app
-    source_dir: /erp-app
+    source_dir: erp-app
     github:
       repo: turinova/turinova-project
       branch: main
@@ -32,7 +32,7 @@ services:
         value: ERROR
 
   - name: saas-management
-    source_dir: /saas-management
+    source_dir: saas-management
     github:
       repo: turinova/turinova-project
       branch: main
