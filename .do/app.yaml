@@ -1,0 +1,72 @@
+name: turinova-erp
+services:
+  - name: erp-app
+    source_dir: /erp-app
+    github:
+      repo: turinova/turinova-project
+      branch: main
+    run_command: php -S 0.0.0.0:8080 -t public/
+    environment_slug: php
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    routes:
+      - path: /
+    envs:
+      - key: APP_ENV
+        value: production
+      - key: DB_HOST
+        value: ${db.DATABASE_HOST}
+      - key: DB_NAME
+        value: ${db.DATABASE_NAME}
+      - key: DB_USER
+        value: ${db.DATABASE_USERNAME}
+      - key: DB_PASS
+        value: ${db.DATABASE_PASSWORD}
+      - key: DB_CHARSET
+        value: utf8mb4
+      - key: CACHE_ENABLED
+        value: "true"
+      - key: DEBUG_MODE
+        value: "false"
+      - key: LOG_LEVEL
+        value: ERROR
+
+  - name: saas-management
+    source_dir: /saas-management
+    github:
+      repo: turinova/turinova-project
+      branch: main
+    run_command: php -S 0.0.0.0:8080 -t public/
+    environment_slug: php
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    routes:
+      - path: /admin
+    envs:
+      - key: SAAS_APP_ENV
+        value: production
+      - key: SAAS_DB_HOST
+        value: ${db.DATABASE_HOST}
+      - key: SAAS_DB_USER
+        value: ${db.DATABASE_USERNAME}
+      - key: SAAS_DB_PASS
+        value: ${db.DATABASE_PASSWORD}
+      - key: SAAS_DB_CHARSET
+        value: utf8mb4
+
+databases:
+  - name: turinova-master
+    engine: mysql
+    version: "8"
+    size: db-s-1vcpu-1gb
+    num_nodes: 1
+    db_name: turinova_master
+    db_user: turinova_admin
+
+  - name: turinova-sample
+    engine: mysql
+    version: "8"
+    size: db-s-1vcpu-1gb
+    num_nodes: 1
+    db_name: turinova_sample_erp
+    db_user: turinova_admin
