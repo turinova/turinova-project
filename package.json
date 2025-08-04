@@ -1,0 +1,11 @@
+{
+    "name": "turinova-erp",
+    "version": "3.0.0",
+    "description": "Turinova Multi-Tenant ERP System",
+    "scripts": {
+        "start": "php -S 0.0.0.0:8080 -t erp-app/public/"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+} 
