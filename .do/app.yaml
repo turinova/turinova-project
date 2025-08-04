@@ -30,10 +30,10 @@ services:
         value: utf8
 
 databases:
-  - name: turinova-master
-    engine: mysql
-    version: "8"
+  - name: turinova-dev
+    engine: pg
+    version: "15"
     size: db-s-1vcpu-1gb
     num_nodes: 1
-    db_name: turinova_master
-    db_user: turinova_admin
+    db_name: turinova-dev
+    db_user: turinova-dev
