@@ -32,16 +32,29 @@ if ($is_production) {
 if (!defined('APP_NAME')) define('APP_NAME', 'Turinova ERP');
 if (!defined('APP_VERSION')) define('APP_VERSION', '3.0');
 
-// Database configuration - Support both MySQL and PostgreSQL
-if (!defined('DB_TYPE')) define('DB_TYPE', $_ENV['DB_TYPE'] ?? 'mysql'); // 'mysql' or 'pgsql'
-if (!defined('DB_HOST')) define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
-if (!defined('DB_NAME')) define('DB_NAME', $_ENV['DB_NAME'] ?? 'turinova_erp');
-if (!defined('DB_USER')) define('DB_USER', $_ENV['DB_USER'] ?? 'root');
-if (!defined('DB_PASS')) define('DB_PASS', $_ENV['DB_PASS'] ?? 'root');
-if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
-
-// PostgreSQL specific settings
-if (!defined('DB_PORT')) define('DB_PORT', $_ENV['DB_PORT'] ?? (DB_TYPE === 'pgsql' ? '5432' : '3306'));
+// Database configuration - Support DATABASE_URL and individual variables
+if (isset($_ENV['DATABASE_URL'])) {
+    // Parse DATABASE_URL (DigitalOcean format)
+    $db_url = $_ENV['DATABASE_URL'];
+    $parsed = parse_url($db_url);
+    
+    if (!defined('DB_TYPE')) define('DB_TYPE', 'pgsql');
+    if (!defined('DB_HOST')) define('DB_HOST', $parsed['host']);
+    if (!defined('DB_PORT')) define('DB_PORT', $parsed['port'] ?? '5432');
+    if (!defined('DB_NAME')) define('DB_NAME', ltrim($parsed['path'], '/'));
+    if (!defined('DB_USER')) define('DB_USER', $parsed['user']);
+    if (!defined('DB_PASS')) define('DB_PASS', $parsed['pass']);
+    if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8');
+} else {
+    // Fallback to individual variables
+    if (!defined('DB_TYPE')) define('DB_TYPE', $_ENV['DB_TYPE'] ?? 'mysql');
+    if (!defined('DB_HOST')) define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
+    if (!defined('DB_NAME')) define('DB_NAME', $_ENV['DB_NAME'] ?? 'turinova_erp');
+    if (!defined('DB_USER')) define('DB_USER', $_ENV['DB_USER'] ?? 'root');
+    if (!defined('DB_PASS')) define('DB_PASS', $_ENV['DB_PASS'] ?? 'root');
+    if (!defined('DB_PORT')) define('DB_PORT', $_ENV['DB_PORT'] ?? (DB_TYPE === 'pgsql' ? '5432' : '3306'));
+    if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
+}
 
 // Performance settings
 if (!defined('CACHE_ENABLED')) define('CACHE_ENABLED', $is_production);
