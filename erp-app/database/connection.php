@@ -10,8 +10,8 @@ require_once __DIR__ . '/../config/app.php';
 try {
     // Determine database type and create appropriate DSN
     if (DB_TYPE === 'pgsql') {
-        // PostgreSQL connection
-        $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8";
+        // PostgreSQL connection - no charset parameter
+        $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME;
         $pdo = new PDO($dsn, DB_USER, DB_PASS, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

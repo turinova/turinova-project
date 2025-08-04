@@ -30,6 +30,7 @@ echo "<div class='section'>
     <h2>📋 Environment Variables</h2>
     <table>
         <tr><th>Variable</th><th>Value</th></tr>
+        <tr><td>DATABASE_URL</td><td>" . (isset($_ENV['DATABASE_URL']) ? 'SET' : 'NOT SET') . "</td></tr>
         <tr><td>DB_TYPE</td><td>" . ($_ENV['DB_TYPE'] ?? 'NOT SET') . "</td></tr>
         <tr><td>DB_HOST</td><td>" . ($_ENV['DB_HOST'] ?? 'NOT SET') . "</td></tr>
         <tr><td>DB_PORT</td><td>" . ($_ENV['DB_PORT'] ?? 'NOT SET') . "</td></tr>
@@ -55,7 +56,7 @@ try {
     
     // Create database connection
     if (DB_TYPE === 'pgsql') {
-        $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8";
+        $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME;
     } else {
         $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
     }
