@@ -5,7 +5,6 @@ services:
     github:
       repo: turinova/turinova-project
       branch: main
-    run_command: php -S 0.0.0.0:8080 -t erp-app/public/
     environment_slug: php
     instance_count: 1
     instance_size_slug: basic-xxs
