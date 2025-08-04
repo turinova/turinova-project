@@ -13,8 +13,14 @@ require_once '../config/session.php';
 // Start session after configuration
 session_start();
 
-// Load database connection
-require_once '../database/connection.php';
+// Load database connection with error handling
+try {
+    require_once '../database/connection.php';
+} catch (Exception $e) {
+    // Log the error but don't break the application
+    error_log("Database connection error: " . $e->getMessage());
+    // Continue without database connection for now
+}
 
 // Load helpers
 require_once '../app/helpers/validation.php';
